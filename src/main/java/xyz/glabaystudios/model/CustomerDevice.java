@@ -21,7 +21,7 @@ import java.util.Date;
 public class CustomerDevice {
     @Id
     private Integer dropOffId;
-    private String customerId;
+    private Integer customerId;
     private Date dropOffDate;
     private String notes;
 }
