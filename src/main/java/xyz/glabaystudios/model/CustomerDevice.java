@@ -1,9 +1,10 @@
-package xyz.glabaystudios.model.data;
+package xyz.glabaystudios.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import xyz.glabaystudios.model.data.uncached.AdditionalThings;
-import xyz.glabaystudios.model.data.uncached.DeviceType;
 
 import java.util.Date;
 
@@ -15,9 +16,12 @@ import java.util.Date;
  */
 @Getter
 @Setter
+@Entity(name = "customer_device")
+@Table(name = "DROP_OFFS")
 public class CustomerDevice {
-    private DeviceType deviceType = DeviceType.UNKNOWN;
-    private AdditionalThings additionalThings;
+    @Id
+    private Integer dropOffId;
+    private String customerId;
     private Date dropOffDate;
     private String notes;
 }

@@ -1,5 +1,8 @@
-package xyz.glabaystudios.model.data;
+package xyz.glabaystudios.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +16,10 @@ import java.time.LocalDate;
  */
 @Getter
 @Setter
+@Entity(name = "employee")
+@Table(name = "EMPLOYEES")
 public class Employee {
+    @Id
     private String employeeId;
     private String employeeFirstName;
     private String employeeLastName;

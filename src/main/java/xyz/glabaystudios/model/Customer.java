@@ -1,5 +1,8 @@
-package xyz.glabaystudios.model.data;
+package xyz.glabaystudios.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +14,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Entity(name = "customer")
+@Table(name = "CUSTOMERS")
 public class Customer {
+    @Id
+    private Integer customerId;
     private String firstName;
     private String lastName;
     private String email;
