@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public record CustomerDeviceDto(
     Integer dropOffId,
-    String customerId,
+    Integer customerId,
     Date dropOffDate,
     String notes
 ) {}
