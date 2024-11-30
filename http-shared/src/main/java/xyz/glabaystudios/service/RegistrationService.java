@@ -28,7 +28,7 @@ public class RegistrationService {
     }
 
     public boolean userExists(@NotNull UserCredentialsDto dto) {
-        return userProfileRepository.existsByUsernameIgnoreCase(dto.getUsername());
+        return userProfileRepository.existsByUsernameIgnoreCase(dto.username());
     }
 
     public UserProfile saveNew(UserProfile model) {
