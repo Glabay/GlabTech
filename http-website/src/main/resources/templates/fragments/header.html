@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" lang="en">
+<head>
+    <!--  Scripts to preload  -->
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="/webjars/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-top" th:fragment="header">
+    <div class="container-fluid">
+            <a class="navbar-brand" href="#" th:href="@{/home}">OSBY</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li sec:authorize="hasRole('ROLE_OWNER')" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/acp}">Database</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ROLE_DEVELOPER', 'ROLE_MANAGEMENT', 'ROLE_ADMIN')" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/admin}">Admin Dashboard</a>
+                </li>
+                <!--
+                    If the logged-in user has a role of USER, then display the profile page
+                -->
+                <li sec:authorize="hasRole('ROLE_USER')" class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/profile}">Profile</a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex flex.row.reverse">
+            <!--
+                This is on the right hand side of the header
+            -->
+            <div></div>
+            <!--
+                If the user is logged-in then give the logout option
+            -->
+            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                <a class="btn btn-primary" href="#" th:href="@{/logout}">Logout</a>
+            </div>
+            <!--
+                else the user is not logged in, display the Register, and Login option
+            -->
+            <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a class="btn btn-primary" href="#" th:href="@{/register}">Register</a>
+            </div>
+            <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                <a class="btn btn-primary" href="#" th:href="@{/login}">Login</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
