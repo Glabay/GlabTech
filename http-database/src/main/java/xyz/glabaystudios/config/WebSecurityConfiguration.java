@@ -34,6 +34,7 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(request -> request
                         // APIs (we want anyone to be able to access registration)
                         .requestMatchers(
+                            "/h2-console/**",
                             "/api/v1/registration/**"
                         ).permitAll()
 

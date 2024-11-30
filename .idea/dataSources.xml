@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="glabtech" uuid="49ccded6-4cae-4425-a955-797fb1e60981">
+    <data-source source="LOCAL" name="glabtech" uuid="06ebcadc-ba53-4db3-a915-b1446700140f">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
-      <jdbc-url>jdbc:h2:./data/warehouse/glabtech</jdbc-url>
+      <jdbc-url>jdbc:h2:mem:glabtech</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
