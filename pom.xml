@@ -6,6 +6,14 @@
     <groupId>xyz.glabaystudios</groupId>
     <artifactId>GlabTech</artifactId>
     <version>1.0-1</version>
+    <packaging>pom</packaging>
+
+    <modules>
+
+        <module>http-shared</module>
+        <module>http-website</module>
+        <module>http-database</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -16,7 +24,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
+        <version>3.3.6</version>
         <relativePath/>
     </parent>
 
@@ -24,7 +32,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.34</version>
+            <version>1.18.36</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -38,6 +46,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
         </dependency>
     </dependencies>
 </project>
