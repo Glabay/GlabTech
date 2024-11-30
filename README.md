@@ -39,7 +39,7 @@ To run the application, execute the main class:
 
 ### Example Output
 Here's a quick look at what you can expect when running the application:
-```shell
+```txt
 Hello World!
 Service Name: DESTROY       Service Cost: 22.00 Service Description: 32-pass Data Erase; Followed with physical destruction.
 Service Name: REIMAGE       Service Cost: 50.00 Service Description: Reinstall the Operating System of a PC/Tablet/Laptop/Mobile device.
@@ -51,8 +51,10 @@ Service Name: ON SITE TECH  Service Cost: 99.00 Service Description: On-Site tec
 
 
 ## Contributing
-Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code meets the project's coding standards and includes proper documentation.
-1. Fork the repository.
+Contributions are welcome! Please clone the repository, make a new Branch, and create a pull request with your changes. 
+Ensure your code meets the project's coding standards and includes proper documentation.
+
+1. Clone the repository.
 2. Create your feature branch:
 ```shell
     git checkout -b feature/AmazingFeature
