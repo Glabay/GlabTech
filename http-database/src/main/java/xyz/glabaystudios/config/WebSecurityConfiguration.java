@@ -32,21 +32,25 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        // APIs (we want anyone to be able to access registration)
-                        .requestMatchers(
-                            "/h2-console/**",
-                            "/api/v1/**"
-                        ).permitAll()
+                    // APIs (we want anyone to be able to access registration)
+                    .requestMatchers(
+                        "/h2-console/**",
+                        "/api/v1/**"
+                    ).permitAll()
+                    // Administration (we only want administration roles to access these)
+                    .requestMatchers(
+                        "/acp/**"
+                    ).hasAnyRole("DEVELOPER", "ADMIN", "MANAGEMENT")
+                    //Anything else require authentication
+                    .anyRequest().authenticated());
 
-                        // Administration (we only want administration roles to access these)
-                        .requestMatchers(
-                            "/acp/**"
-                        ).hasAnyRole("DEVELOPER", "ADMIN", "MANAGEMENT")
-                        //Anything else require authentication
-                        .anyRequest().authenticated());
         http.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
-                .logout((logout) -> logout.addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(COOKIES))));
-        http.headers(configurer -> configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+                .logout((logout) ->
+                    logout.addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(COOKIES))));
+
+        http.headers(configurer ->
+            configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+
         return http.build();
     }
 

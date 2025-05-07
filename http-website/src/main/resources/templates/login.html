@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1">
+    <title>Glabay-Studios | Home</title>
+</head>
+<body class="bg-gs">
+    <div th:replace="~{fragments/header::header}"></div>
+    <div class="px-4 text-center">
+        <h1>Welcome to GlabTech Login</h1>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+        <div class="container align-content-center">
+            <form th:action="@{/perform-login}" method="post">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+            <div>
+                <a th:href="@{/register}">Register new account</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

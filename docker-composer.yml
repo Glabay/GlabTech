@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16
+    container_name: glabtech-postgres
+    environment:
+      POSTGRES_DB: glabtech_db
+      POSTGRES_USER: glabtech_user
+      POSTGRES_PASSWORD: glabtech_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

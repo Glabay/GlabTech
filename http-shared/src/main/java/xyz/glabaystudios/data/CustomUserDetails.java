@@ -18,6 +18,11 @@ public class CustomUserDetails implements UserDetails {
 
     private final UserProfile userProfile;
 
+    private final SimpleGrantedAuthority ROLE_USER = new SimpleGrantedAuthority("ROLE_USER");
+    private final SimpleGrantedAuthority ROLE_MANAGER = new SimpleGrantedAuthority("ROLE_MANAGEMENT");
+    private final SimpleGrantedAuthority ROLE_DEVELOPER = new SimpleGrantedAuthority("ROLE_DEVELOPER");
+    private final SimpleGrantedAuthority ROLE_ADMINISTRATOR = new SimpleGrantedAuthority("ROLE_ADMIN");
+
     public CustomUserDetails(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
@@ -26,12 +31,7 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         var authorities = new ArrayList<SimpleGrantedAuthority>();
         // Everyone gets the default USER role
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-        var roleManager = new SimpleGrantedAuthority("ROLE_MANAGEMENT");
-        var roleDeveloper = new SimpleGrantedAuthority("ROLE_DEVELOPER");
-        var roleAdmin = new SimpleGrantedAuthority("ROLE_ADMIN");
-
+        authorities.add(ROLE_USER);
 
         return authorities;
     }

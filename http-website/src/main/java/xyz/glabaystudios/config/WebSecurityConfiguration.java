@@ -31,31 +31,41 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request
-                        // User-Relate (requires logged-in user to have a ROLE_USER to access)
-                        .requestMatchers(
-                            "/profile",
-                            "/ticket/**"
-                        ).hasRole("USER")
-                        // Pages
-                        .requestMatchers(
-                            "/",
-                            "/index",
-                            "/home",
-                            "/osby",
-                            "/register"
-                        ).permitAll()
-                        // Resources
-                        .requestMatchers(
-                            "/css/**",
-                            "/img/**",
-                            "/webjars/**"
-                        ).permitAll()
-                        //Anything else require authentication
-                        .anyRequest().authenticated());
-        http.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
-                .logout((logout) -> logout.addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(COOKIES))));
-        http.headers(configurer -> configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+            .authorizeHttpRequests(request -> request
+                // User-Relate (requires a logged-in user to have a ROLE_USER to access)
+                .requestMatchers(
+                    "/profile/**",
+                    "/tickets/**"
+                ).hasRole("USER")
+                // Public pages
+                .requestMatchers(
+                    "/",
+                    "/index",
+                    "/home",
+                    "/osby",
+                    "/register"
+                ).permitAll()
+                // Public APIs
+                .requestMatchers(
+                    "/api/v1/**"
+                ).permitAll()
+                // Public resources
+                .requestMatchers(
+                    "/css/**",
+                    "/img/**",
+                    "/webjars/**"
+                ).permitAll()
+                //Anything else requires authentication
+                .anyRequest().authenticated()
+            )
+            .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+            .logout(logout -> logout
+                .addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(COOKIES)))
+                .permitAll());
+
+        http.headers(configurer ->
+            configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+
         return http.build();
     }
 
@@ -72,8 +82,8 @@ public class WebSecurityConfiguration {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         var provider = new DaoAuthenticationProvider();
-            provider.setUserDetailsService(getUserDetailsService());
-            provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(getUserDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 

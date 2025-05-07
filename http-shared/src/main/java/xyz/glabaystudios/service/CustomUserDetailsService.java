@@ -2,11 +2,15 @@ package xyz.glabaystudios.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 import xyz.glabaystudios.data.CustomUserDetails;
+import xyz.glabaystudios.user.UserProfile;
 
 import java.util.Objects;
 
@@ -17,17 +21,26 @@ import java.util.Objects;
  * @since 2024-11-30
  */
 @Service
-@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private RegistrationService registrationService;
+    private final RestClient restClient;
+
+    public CustomUserDetailsService() {
+        this.restClient = RestClient.builder()
+            .requestFactory(new JdkClientHttpRequestFactory())
+            .build();
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var profile = registrationService.findByUsername(username);
-        if (Objects.nonNull(profile))
-            return new CustomUserDetails(profile);
-        throw new UsernameNotFoundException("User not found.");
+        var profile = restClient.get()
+            .uri("http://localhost:8080/api/v1/profile/find/" + username)
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .toEntity(UserProfile.class)
+            .getBody();
+        if (Objects.isNull(profile))
+            throw new UsernameNotFoundException("User not found");
+        return new CustomUserDetails(profile);
     }
 }
