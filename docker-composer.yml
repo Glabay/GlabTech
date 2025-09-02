@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres:16
+    image: postgres:latest
     container_name: glabtech-postgres
     environment:
       POSTGRES_DB: glabtech_db
