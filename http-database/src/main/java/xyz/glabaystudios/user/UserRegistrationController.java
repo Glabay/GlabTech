@@ -1,17 +1,13 @@
 package xyz.glabaystudios.user;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClient;
-import xyz.glabaystudios.dto.UserCredentialsDto;
 import xyz.glabaystudios.dto.UserProfileDto;
-import xyz.glabaystudios.service.RegistrationService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,5 +39,24 @@ public class UserRegistrationController {
         if (Objects.isNull(model))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(model, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<@NotNull List<UserProfileDto>> findAllUsers() {
+        var dtos = playerProfileService.findAll();
+        if (Objects.isNull(dtos) || dtos.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(dtos);
+    }
+
+    @GetMapping("/exists/{username}")
+    public ResponseEntity<Boolean> findAllUsers(@PathVariable String username) {
+        var userExists = playerProfileService.userExists(username);
+        if (Objects.isNull(userExists))
+            return ResponseEntity.notFound().build();
+        if (userExists)
+            return ResponseEntity.ok().body(Boolean.TRUE);
+        else
+            return ResponseEntity.ok().body(Boolean.FALSE);
     }
 }
