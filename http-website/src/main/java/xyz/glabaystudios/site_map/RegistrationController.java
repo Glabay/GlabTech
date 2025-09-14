@@ -1,5 +1,8 @@
 package xyz.glabaystudios.site_map;
 
+import org.jetbrains.annotations.NotNull;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestClient;
 import xyz.glabaystudios.dto.UserCredentialsDto;
 import xyz.glabaystudios.dto.UserProfileDto;
-import xyz.glabaystudios.service.RegistrationService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,11 +29,9 @@ import java.util.Objects;
 @RequestMapping("/api/v1/registration")
 public class RegistrationController {
 
-    private final RegistrationService registrationService;
     private final RestClient restClient;
 
-    public RegistrationController(RegistrationService registrationService, RestClient restClient) {
-        this.registrationService = registrationService;
+    public RegistrationController(RestClient restClient) {
         this.restClient = restClient;
     }
 
@@ -38,7 +39,7 @@ public class RegistrationController {
     public String registerNewUser(@ModelAttribute("newUser") UserCredentialsDto userCredentials) {
         if (Objects.isNull(userCredentials))
             return "redirect:/register?noCreds";
-        if (registrationService.userExists(userCredentials))
+        if (userExists(userCredentials.username()))
             return "redirect:/register?userExists";
         if (!Objects.equals(userCredentials.password(), userCredentials.rePassword()))
             return "redirect:/register?passMissMatch";
@@ -60,10 +61,28 @@ public class RegistrationController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<UserProfileDto>> getAllUsers() {
-        var dtos = registrationService.findAll();
+    public ResponseEntity<@NotNull List<UserProfileDto>> getAllUsers() {
+        var dtos = restClient.get()
+            .uri("http://localhost:8080/api/v1/profile/all")
+            .retrieve()
+            .toEntity(new ParameterizedTypeReference<@NotNull List<UserProfileDto>>() {})
+            .getBody();
         if (Objects.isNull(dtos) || dtos.isEmpty())
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok().body(dtos);
+        return new ResponseEntity<>(new ArrayList<>(dtos), HttpStatus.OK);
     }
+
+    private boolean userExists(String username) {
+        try {
+            var response = restClient.get()
+                .uri("http://localhost:8080/api/v1/profile/exists/{username}", username)
+                .retrieve()
+                .body(Boolean.class);
+            return Boolean.TRUE.equals(response);
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
 }
