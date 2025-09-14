@@ -1,16 +1,29 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:16-alpine
     container_name: glabtech-postgres
+    restart: unless-stopped
     environment:
       POSTGRES_DB: glabtech_db
-      POSTGRES_USER: glabtech_user
-      POSTGRES_PASSWORD: glabtech_pass
+      POSTGRES_USER: ${POSTGRES_USER:-GLABTECH_APP}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-GLABTECH_APP_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --auth-local=scram-sha-256"
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-GLABTECH_APP} -d glabtech_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    security_opt:
+      - no-new-privileges:true
+    user: postgres
 
 volumes:
   postgres_data:
+    driver: local
