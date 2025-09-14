@@ -1,6 +1,5 @@
 package xyz.glabaystudios.site_map;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.client.RestClient;
 import xyz.glabaystudios.dto.UserCredentialsDto;
 import xyz.glabaystudios.dto.UserProfileDto;
 import xyz.glabaystudios.service.RegistrationService;
-import xyz.glabaystudios.user.UserProfile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,12 +23,16 @@ import java.util.Objects;
  * @since 2025-05-06
  */
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/registration")
 public class RegistrationController {
 
     private final RegistrationService registrationService;
     private final RestClient restClient;
+
+    public RegistrationController(RegistrationService registrationService, RestClient restClient) {
+        this.registrationService = registrationService;
+        this.restClient = restClient;
+    }
 
     @PostMapping("/new")
     public String registerNewUser(@ModelAttribute("newUser") UserCredentialsDto userCredentials) {

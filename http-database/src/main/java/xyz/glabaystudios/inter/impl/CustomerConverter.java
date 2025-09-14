@@ -11,6 +11,7 @@ import xyz.glabaystudios.customer.Customer;
  * @since 2024-11-22
  */
 public interface CustomerConverter extends DtoConverter<Customer, CustomerDto> {
+
     @Override
     default CustomerDto mapToDto(Customer model) {
         return new CustomerDto(

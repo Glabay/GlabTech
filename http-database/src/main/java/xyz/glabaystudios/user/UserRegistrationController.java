@@ -33,7 +33,7 @@ public class UserRegistrationController {
             return new ResponseEntity<>("405:Not Allowed", HttpStatus.METHOD_NOT_ALLOWED);
         var profile = playerProfileService.createNewPlayerProfile(body);
         if (Objects.nonNull(profile))
-            return new ResponseEntity<>("201:Successfully created profile -> " + profile.getUsername(), HttpStatus.CREATED);
+            return new ResponseEntity<>("201:Successfully created profile.", HttpStatus.CREATED);
         return new ResponseEntity<>("204:Oops, looks like something we sideways...", HttpStatus.NO_CONTENT);
     }
 

@@ -1,7 +1,5 @@
 package xyz.glabaystudios.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public CustomUserDetailsService() {
         this.restClient = RestClient.builder()
             .requestFactory(new JdkClientHttpRequestFactory())
+            .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
             .build();
     }
 
@@ -35,7 +34,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var profile = restClient.get()
             .uri("http://localhost:8080/api/v1/profile/find/" + username)
-            .accept(MediaType.APPLICATION_JSON)
             .retrieve()
             .toEntity(UserProfile.class)
             .getBody();

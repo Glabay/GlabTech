@@ -41,7 +41,7 @@ public class WebSecurityConfiguration {
                     .requestMatchers(
                         "/acp/**"
                     ).hasAnyRole("DEVELOPER", "ADMIN", "MANAGEMENT")
-                    //Anything else require authentication
+                    //Anything else requires authentication
                     .anyRequest().authenticated());
 
         http.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
@@ -66,8 +66,7 @@ public class WebSecurityConfiguration {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        var provider = new DaoAuthenticationProvider();
-            provider.setUserDetailsService(getUserDetailsService());
+        var provider = new DaoAuthenticationProvider(getUserDetailsService());
             provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }

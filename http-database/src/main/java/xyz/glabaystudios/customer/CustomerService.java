@@ -1,6 +1,5 @@
 package xyz.glabaystudios.customer;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import xyz.glabaystudios.dto.CustomerDto;
 import xyz.glabaystudios.inter.impl.CustomerConverter;
@@ -15,11 +14,15 @@ import java.util.List;
  * @since 2024-11-22
  */
 @Service
-@RequiredArgsConstructor
 public class CustomerService implements CustomerConverter {
 
     private final CustomerRepository customerRepository;
     private final CustomerDeviceRepository customerDeviceRepository;
+
+    public CustomerService(CustomerRepository customerRepository, CustomerDeviceRepository customerDeviceRepository) {
+        this.customerRepository = customerRepository;
+        this.customerDeviceRepository = customerDeviceRepository;
+    }
 
     public List<CustomerDto> getAllCustomers() {
         return customerRepository.findAll()
