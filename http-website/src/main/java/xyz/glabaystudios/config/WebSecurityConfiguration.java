@@ -42,12 +42,7 @@ public class WebSecurityConfiguration {
                     "/",
                     "/index",
                     "/home",
-                    "/osby",
                     "/register"
-                ).permitAll()
-                // Public APIs
-                .requestMatchers(
-                    "/api/v1/**"
                 ).permitAll()
                 // Public resources
                 .requestMatchers(
