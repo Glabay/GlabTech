@@ -1,6 +1,6 @@
 # GlabTech
 
-![Java](https://img.shields.io/badge/Java-24-orange?style=flat-square&logo=openjdk)
+![Java](https://img.shields.io/badge/Java-25-orange?style=flat-square&logo=openjdk)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.0--M2-brightgreen?style=flat-square&logo=spring)
 ![Maven](https://img.shields.io/badge/Maven-3.6+-blue?style=flat-square&logo=apache-maven)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
