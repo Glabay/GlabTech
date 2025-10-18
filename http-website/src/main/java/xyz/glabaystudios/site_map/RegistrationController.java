@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestClient;
 import xyz.glabaystudios.dto.UserCredentialsDto;
 import xyz.glabaystudios.dto.UserProfileDto;
+import xyz.glabaystudios.net.IClient;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,15 +28,9 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/api/v1/registration")
-public class RegistrationController {
+public class RegistrationController implements IClient {
 
-    private final RestClient restClient;
-
-    public RegistrationController(RestClient restClient) {
-        this.restClient = restClient;
-    }
-
-    @PostMapping("/new")
+    @PostMapping
     public String registerNewUser(@ModelAttribute("newUser") UserCredentialsDto userCredentials) {
         if (Objects.isNull(userCredentials))
             return "redirect:/register?noCreds";
@@ -51,8 +46,8 @@ public class RegistrationController {
             LocalDateTime.now(),
             LocalDateTime.now()
         );
-        restClient.post()
-            .uri("http://localhost:8080/api/v1/profile/register")
+        getRestClient().post()
+            .uri(API_URL.concat("/v1/profiles/register"))
             .body(dto)
             .retrieve()
             .toEntity(String.class);
@@ -60,10 +55,10 @@ public class RegistrationController {
         return "redirect:/index";
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<@NotNull List<UserProfileDto>> getAllUsers() {
-        var dtos = restClient.get()
-            .uri("http://localhost:8080/api/v1/profile/all")
+        var dtos = getRestClient().get()
+            .uri(API_URL.concat("/v1/profiles"))
             .retrieve()
             .toEntity(new ParameterizedTypeReference<@NotNull List<UserProfileDto>>() {})
             .getBody();
@@ -74,8 +69,8 @@ public class RegistrationController {
 
     private boolean userExists(String username) {
         try {
-            var response = restClient.get()
-                .uri("http://localhost:8080/api/v1/profile/exists/{username}", username)
+            var response = getRestClient().get()
+                .uri(API_URL.concat("/v1/profiles/exists/").concat(username))
                 .retrieve()
                 .body(Boolean.class);
             return Boolean.TRUE.equals(response);
