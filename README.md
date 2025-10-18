@@ -54,13 +54,13 @@ The system provides separate portals for customers and employees, ensuring strea
 | **Database**  | Postgres SQL    | Latest   |
 | **Security**  | Spring Security | 4.0.0-M2 |
 | **Build**     | Maven           | 3.6+     |
-| **Language**  | Java            | JDK 24   |
+| **Language**  | Java            | JDK 25   |
 | **Tools**     | Lombok          | 1.18.38  |
 
 ---
 ## Getting Started
 ### Prerequisites
-- ☕ **JDK 24** or higher
+- ☕ **JDK 25** or higher
 - 📦 **Maven 3.6+**
 - 🔧 **Git**
 
@@ -68,15 +68,15 @@ The system provides separate portals for customers and employees, ensuring strea
 ### Installation
 1. Clone the repository:
     ```shell
-      git clone https://github.com/glabay/glabtech.git
+    git clone https://github.com/glabay/glabtech.git
     ```
 2. Navigate to the project
     ```shell
-        cd glabtech
+    cd glabtech
     ```
 3. Test the project was cloned properly
     ```shell
-        mvn clean verify
+    mvn clean verify
     ```
 4. Set up the environment
     - Copy `.env.example` to `.env` (if available)
@@ -93,15 +93,15 @@ Ensure your code meets the project's coding standards and includes proper docume
 1. Clone the repository.
 2. Create your feature branch:
     ```shell
-        git checkout -b feature/AmazingFeature
+     git checkout -b feature/AmazingFeature
     ```
 3. Commit your changes:
     ```shell
-        git commit -m 'Add some AmazingFeature'
+    git commit -m 'Add some AmazingFeature'
     ```
 4. Push to the branch:
     ```shell
-        git push origin feature/AmazingFeature
+    git push origin feature/AmazingFeature
     ```
 5. Open a pull request.
 
@@ -140,15 +140,15 @@ Follow these steps to contribute:
 
 2. **Clone Your Fork**
     ```shell
-      git clone https://github.com/YOUR-USERNAME/glabtech.git
+    git clone https://github.com/YOUR-USERNAME/glabtech.git
     ```
 3. **Set Up the Original Repository as Upstream**
     ```shell
-      git remote add upstream https://github.com/glabay/glabtech.git
+    git remote add upstream https://github.com/glabay/glabtech.git
     ```
 4. **Create a Feature Branch**
     ```shell
-      git checkout -b feature/your-amazing-feature
+    git checkout -b feature/your-amazing-feature
     ```
 5. **Make Your Changes**
     - Write your code following our coding standards
@@ -157,12 +157,12 @@ Follow these steps to contribute:
 
 6. **Commit Your Changes**
     ```shell
-      git add .
-      git commit -m "Add: Brief description of your feature"
+    git add .
+    git commit -m "Add: Brief description of your feature"
     ```
 7. **Push to Your Fork**
     ```shell
-      git push origin feature/your-amazing-feature
+    git push origin feature/your-amazing-feature
     ```
 8. **Create a Pull Request**
     - Go to your fork on GitHub
@@ -197,17 +197,17 @@ Follow these steps to contribute:
 ---
 ### Keeping Your Fork Updated
 ```shell
-    # Fetch the latest changes from the original repository
-    git fetch upstream
+# Fetch the latest changes from the original repository
+git fetch upstream
     
-    # Switch to your main branch
-    git checkout main
+# Switch to your main branch
+git checkout main
     
-    # Merge the changes from upstream
-    git merge upstream/main
+# Merge the changes from upstream
+git merge upstream/main
     
-    # Push the updates to your fork
-    git push origin main
+# Push the updates to your fork
+git push origin main
 ```
 
 ---
