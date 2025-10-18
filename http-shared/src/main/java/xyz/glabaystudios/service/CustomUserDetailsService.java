@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var profile = restClient.get()
-            .uri("http://localhost:8080/api/v1/profile/find/" + username)
+            .uri("http://localhost:8080/api/v1/profiles/find/" + username)
             .retrieve()
             .toEntity(UserProfile.class)
             .getBody();

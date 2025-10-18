@@ -17,11 +17,9 @@ import java.util.List;
 public class CustomerService implements CustomerConverter {
 
     private final CustomerRepository customerRepository;
-    private final CustomerDeviceRepository customerDeviceRepository;
 
-    public CustomerService(CustomerRepository customerRepository, CustomerDeviceRepository customerDeviceRepository) {
+    public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
-        this.customerDeviceRepository = customerDeviceRepository;
     }
 
     public List<CustomerDto> getAllCustomers() {

@@ -16,11 +16,11 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/service")
+@RequestMapping("/api/v1/services")
 public class ServiceController {
     public final ServicesService servicesService;
 
-    @GetMapping("/search/all")
+    @GetMapping
     public List<ServiceDto> getAllServices() {
         return servicesService.getAllServices();
     }
