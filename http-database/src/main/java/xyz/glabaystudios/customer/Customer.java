@@ -18,7 +18,7 @@ import lombok.Setter;
 @Table(name = "CUSTOMERS")
 public class Customer {
     @Id
-    private Integer customerId;
+    private Long customerId;
     private String firstName;
     private String lastName;
     private String email;

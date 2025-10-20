@@ -11,7 +11,6 @@ import java.util.Optional;
  * @since 2024-11-30
  */
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
-    Optional<UserProfile> findByUsernameIgnoreCase(String username);
-
-    boolean existsByUsernameIgnoreCase(String username);
+    Optional<UserProfile> findByEmailIgnoreCase(String email);
+    boolean existsByFirstNameIgnoreCase(String username);
 }

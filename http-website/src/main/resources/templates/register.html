@@ -27,7 +27,13 @@
         <div class="container align-content-center">
             <form action="#" th:action="@{/api/v1/registration}" th:object="${newUser}" method="post">
                 <label>
-                    <input type="text" placeholder="Username" style="width: 160px; text-align: center" th:field="*{username}" required>
+                    <input type="text" placeholder="First name" style="width: 160px; text-align: center" th:field="*{firstName}" required>
+                </label><br>
+                <label>
+                    <input type="text" placeholder="Last name" style="width: 160px; text-align: center" th:field="*{lastName}" required>
+                </label><br>
+                <label>
+                    <input type="text" placeholder="Contact Number" style="width: 160px; text-align: center" th:field="*{contactNumber}" required>
                 </label><br>
                 <label>
                     <input type="text" placeholder="Email" style="width: 160px; text-align: center" th:field="*{email}" required>

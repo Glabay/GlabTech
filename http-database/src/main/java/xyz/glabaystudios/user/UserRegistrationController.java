@@ -34,8 +34,8 @@ public class UserRegistrationController {
     }
 
     @GetMapping("/find/{username}")
-    public ResponseEntity<@NotNull UserProfile> findUser(@PathVariable String username) {
-        var model = playerProfileService.findByUsername(username);
+    public ResponseEntity<@NotNull UserProfileDto> findUser(@PathVariable String username) {
+        var model = playerProfileService.findByEmail(username);
         if (Objects.isNull(model))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(model, HttpStatus.OK);

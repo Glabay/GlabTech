@@ -1,13 +1,12 @@
 package xyz.glabaystudios.service;
 
-import org.springframework.http.MediaType;
-import org.springframework.http.client.JdkClientHttpRequestFactory;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 import xyz.glabaystudios.data.CustomUserDetails;
+import xyz.glabaystudios.net.IClient;
 import xyz.glabaystudios.user.UserProfile;
 
 import java.util.Objects;
@@ -19,21 +18,12 @@ import java.util.Objects;
  * @since 2024-11-30
  */
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
-
-    private final RestClient restClient;
-
-    public CustomUserDetailsService() {
-        this.restClient = RestClient.builder()
-            .requestFactory(new JdkClientHttpRequestFactory())
-            .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
-            .build();
-    }
+public class CustomUserDetailsService implements UserDetailsService, IClient {
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var profile = restClient.get()
-            .uri("http://localhost:8080/api/v1/profiles/find/" + username)
+    public @NotNull UserDetails loadUserByUsername(@NotNull String username) throws UsernameNotFoundException {
+        var profile = getRestClient().get()
+            .uri(API_URL.concat("/v1/profiles/find/").concat(username))
             .retrieve()
             .toEntity(UserProfile.class)
             .getBody();

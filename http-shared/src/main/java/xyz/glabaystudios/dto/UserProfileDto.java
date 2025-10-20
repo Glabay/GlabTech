@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
  */
 public record UserProfileDto(
     String email,
-    String username,
+    String firstName,
+    String lastName,
+    String contactNumber,
     String encryptedPassword,
     LocalDateTime createdAt,
     LocalDateTime updatedAt

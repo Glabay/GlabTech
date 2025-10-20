@@ -30,8 +30,16 @@ public class UserProfile {
 
     @Column(name = "EMAIL")
     private String email;
-    @Column(name = "USERNAME")
-    private String username;
+
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
+    @Column(name = "LAST_NAME")
+    private String lastName;
+
+    @Column(name = "CONTACT_NUMBER")
+    private String contactNumber;
+
     @Column(name = "PASSWORD")
     private String encryptedPassword;
 

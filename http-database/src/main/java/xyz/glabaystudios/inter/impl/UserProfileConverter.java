@@ -17,7 +17,9 @@ public interface UserProfileConverter extends DtoConverter<UserProfile, UserProf
     default UserProfileDto mapToDto(UserProfile model) {
         return new UserProfileDto(
             model.getEmail(),
-            model.getUsername(),
+            model.getFirstName(),
+            model.getLastName(),
+            model.getContactNumber(),
             model.getEncryptedPassword(),
             model.getCreatedAt(),
             LocalDateTime.now()

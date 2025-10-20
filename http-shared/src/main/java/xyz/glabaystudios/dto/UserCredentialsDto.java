@@ -7,7 +7,9 @@ package xyz.glabaystudios.dto;
  * @since 2024-11-30
  */
 public record UserCredentialsDto(
-    String username,
+    String firstName,
+    String lastName,
+    String contactNumber,
     String email,
     String password,
     String rePassword

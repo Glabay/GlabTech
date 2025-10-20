@@ -1,9 +1,11 @@
 package xyz.glabaystudios.customer;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import xyz.glabaystudios.dto.CustomerDto;
+import xyz.glabaystudios.dto.UserProfileDto;
+import xyz.glabaystudios.user.UserProfile;
 
 import java.util.List;
 
@@ -21,6 +23,17 @@ public class CustomerController {
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
+    }
+
+    @PostMapping
+    private ResponseEntity<@NotNull CustomerDto> createCustomer(@RequestBody @NotNull UserProfileDto dto) {
+        return ResponseEntity.ok(customerService.createCustomer(dto));
+    }
+
+    @GetMapping("/{customerId}")
+    private ResponseEntity<@NotNull CustomerDto> getCustomerById(@PathVariable String customerId) {
+        var custId = Integer.parseInt(customerId);
+        return ResponseEntity.ok(customerService.getCustomerById(custId));
     }
 
     @GetMapping
