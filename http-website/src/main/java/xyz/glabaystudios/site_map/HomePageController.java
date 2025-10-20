@@ -23,7 +23,14 @@ public class HomePageController {
 
     @GetMapping("/register")
     public String getRegistrationPage(Model model) {
-        model.addAttribute("newUser", new UserCredentialsDto("", "", "", ""));
+        model.addAttribute("newUser", new UserCredentialsDto(
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ));
         return "register";
     }
 }
