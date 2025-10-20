@@ -26,3 +26,47 @@ footer {
     font-size: 0.9em;
     color: #555;
 }
+
+.content {
+    width: 100vw;
+    transform: translate(0) scale(1);
+}
+
+.flex-filter-container > button {
+    width: 33%;
+}
+
+.flex-container {
+    display: flex;
+    height: 196px;
+    justify-content: space-around;
+    background-color: #F4AE86;
+    flex-direction: row;
+}
+
+.flex-container-cb {
+    display: flex;
+    height: 360px;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.form-style-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex-container-exception {
+    display: flex;
+    height: 196px;
+    flex-direction: column;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+.table>:not(caption)>*>* {
+    padding: 2px
+}
